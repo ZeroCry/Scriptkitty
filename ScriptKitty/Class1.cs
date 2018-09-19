@@ -14,7 +14,7 @@ namespace ScriptKitty
         public string ModVersion = "ScriptKitty v0.0.1";
         public string ModPath = "Content\\Mods\\ScriptKitty\\";
         //public object ModPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); Does Not Work with multiple Mods
-        public Dictionary<int, SeqNrStorableData> SeqNrStorage = new Dictionary<int, SeqNrStorableData> { };
+        public Dictionary<int, StorableData> SeqNrStorage = new Dictionary<int, StorableData> { };
         public int CurrentSeqNr = 500;
 
         private void LogFile(string FileName, string FileData)
@@ -27,7 +27,7 @@ namespace ScriptKitty
             System.IO.File.AppendAllText(ModPath + FileName, FileData2);
         }
 
-        public class SeqNrStorableData
+        public class StorableData
         {
             public ChatInfo ChatInfo;
             public PlayerInfo PlayerInfo;
@@ -85,7 +85,7 @@ namespace ScriptKitty
                         ChatInfo Received_ChatInfo = (ChatInfo)data;
                         if (Received_ChatInfo.msg.StartsWith("/say"))
                         {
-                            SeqNrStorableData StoreThis = new SeqNrStorableData();
+                            StorableData StoreThis = new StorableData();
                             StoreThis.ChatInfo = Received_ChatInfo;
                             CurrentSeqNr = SeqNrGenerator(CurrentSeqNr);
                             SeqNrStorage[CurrentSeqNr] = StoreThis;
@@ -163,7 +163,7 @@ namespace ScriptKitty
                         {
                             if (Received_PlayerInfo.permission > 1)
                             {
-                                SeqNrStorableData StoreThis = SeqNrStorage[seqNr];
+                                StorableData StoreThis = SeqNrStorage[seqNr];
                                 try { SeqNrStorage.Remove(seqNr); } catch { };
                                 string[] message = StoreThis.ChatInfo.msg.Split(' ');
                                 string ParsedMessage = ArrayConcatenate(1, message);
