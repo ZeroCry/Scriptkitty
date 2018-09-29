@@ -14,8 +14,8 @@ namespace ScriptKitty
         public string ModVersion = "ScriptKitty v0.0.1";
         public string ModPath = "Content\\Mods\\ScriptKitty\\";
         //public object ModPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); Does Not Work with multiple Mods
-        public Dictionary<int, StorableData> SeqNrStorage = new Dictionary<int, StorableData> { };
-        public int CurrentSeqNr = 500;
+        private Dictionary<int, Storage.RequestData> SeqNrStorage = new Dictionary<int, Storage.RequestData> { };
+        public int CurrentSeqNr = 1500;
 
         private void LogFile(string FileName, string FileData)
         {
@@ -26,7 +26,7 @@ namespace ScriptKitty
             string FileData2 = FileData + Environment.NewLine;
             System.IO.File.AppendAllText(ModPath + FileName, FileData2);
         }
-
+        /*
         public class StorableData
         {
             public ChatInfo ChatInfo;
@@ -35,16 +35,17 @@ namespace ScriptKitty
             public IdStructureBlockInfo StructureBlockInfo;
             public PlayfieldEntityList PlayfieldEntities;
         }
+        */
 
         public int SeqNrGenerator(int LastSeqNr)
         {
             bool Fail = false;
-            int CurrentSeqNr = 500;
+            int CurrentSeqNr = 1500;
             do
             {
                 if (LastSeqNr > 65530)
                 {
-                    LastSeqNr = 500;
+                    LastSeqNr = 1500;
                 }
                 CurrentSeqNr = LastSeqNr + 1;
                 if (SeqNrStorage.ContainsKey(CurrentSeqNr)) { Fail = true; }
@@ -85,7 +86,7 @@ namespace ScriptKitty
                         ChatInfo Received_ChatInfo = (ChatInfo)data;
                         if (Received_ChatInfo.msg.StartsWith("/say"))
                         {
-                            StorableData StoreThis = new StorableData();
+                            Storage.RequestData StoreThis = new Storage.RequestData();
                             StoreThis.ChatInfo = Received_ChatInfo;
                             CurrentSeqNr = SeqNrGenerator(CurrentSeqNr);
                             SeqNrStorage[CurrentSeqNr] = StoreThis;
@@ -163,7 +164,7 @@ namespace ScriptKitty
                         {
                             if (Received_PlayerInfo.permission > 1)
                             {
-                                StorableData StoreThis = SeqNrStorage[seqNr];
+                                Storage.RequestData StoreThis = SeqNrStorage[seqNr];
                                 try { SeqNrStorage.Remove(seqNr); } catch { };
                                 string[] message = StoreThis.ChatInfo.msg.Split(' ');
                                 string ParsedMessage = ArrayConcatenate(1, message);

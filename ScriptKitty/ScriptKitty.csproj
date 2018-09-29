@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\EmpyrionDedicated_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\SteamCMD\steamapps\common\Empyrion - Dedicated Server\EmpyrionPlayfieldServer_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Mif">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\EmpyrionDedicated_Data\Managed\Mif.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\SteamCMD\steamapps\common\Empyrion - Dedicated Server\EmpyrionPlayfieldServer_Data\Managed\Mif.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sectors.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Storage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
